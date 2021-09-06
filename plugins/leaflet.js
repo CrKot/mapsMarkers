@@ -1,11 +1,5 @@
 import Vue from 'vue'
-import {
-  LMap,
-  LTileLayer,
-  LMarker,
-  LControl,
-  LControlLayers,
-} from 'vue2-leaflet'
+import { LMap, LTileLayer, LMarker, LControl } from 'vue2-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Icon } from 'leaflet'
 
@@ -20,4 +14,3 @@ Vue.component('LMap', LMap)
 Vue.component('LTileLayer', LTileLayer)
 Vue.component('LMarker', LMarker)
 Vue.component('LControl', LControl)
-Vue.component('LControlLayers', LControlLayers)
