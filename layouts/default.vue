@@ -4,9 +4,7 @@
       <v-toolbar-title v-text="title" />
     </v-app-bar>
     <v-main>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-main>
     <v-footer class="d-inline text-center" fixed app>
       <p>Powered by ArtemSalikhov</p>
