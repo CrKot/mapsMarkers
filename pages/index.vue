@@ -9,8 +9,8 @@
           :lat-lng="getValidPositionPointName(object)"
           @click="goToMarker(object), selectIActiveItem(object.id)"
         ></l-marker>
-        <l-control position="topright" style="height: 10%">
-          <v-card flat rounded="lg" height="20%">
+        <l-control position="topright">
+          <v-card flat rounded="lg">
             <v-list dense>
               <v-list-item-title class="title">Объекты</v-list-item-title>
               <v-list-item-action>

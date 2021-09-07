@@ -1,20 +1,17 @@
 # mapsPoint
 
-## Build Setup
+## Запуск проекта
 
 ```bash
-# install dependencies
+# Установите завимости
 $ npm install
 
-# serve with hot reload at localhost:3000
+# Запуск в среде разработки
 $ npm run dev
 
-# build for production and launch server
+# Запуск в продакшн среде
 $ npm run build
 $ npm run start
-
-# generate static project
-$ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Перейдите в браузере по адресу [https://127.0.0.1:3000](https://127.0.0.1:3000).
