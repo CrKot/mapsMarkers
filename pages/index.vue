@@ -7,7 +7,7 @@
           v-for="object in objects"
           :key="object.id"
           :lat-lng="getValidPositionPointName(object)"
-          @click="goToMarker(object), selectIActiveItem(object.id)"
+          @click="goToMarker(object)"
         ></l-marker>
         <l-control position="topright">
           <v-card flat rounded="lg">
@@ -18,12 +18,12 @@
               </v-list-item-action>
               <v-list-item-group mandatory no-action>
                 <v-list-item
-                  v-for="object in getObjectsList()"
+                  v-for="object in filteredMarkersList"
                   :key="object.id"
                   ref="mapObjects"
                   color="primary"
                   :data-key="object.id"
-                  @click="goToMarker(object), selectIActiveItem(object.id)"
+                  @click="goToMarker(object)"
                 >
                   <v-list-item-content>
                     <v-list-item-title v-text="object.name" />
@@ -52,55 +52,39 @@ export default {
       activeItem: null,
     }
   },
-  methods: {
-    selectIActiveItem(id) {
-      this.activeItem = id
+  computed: {
+    filteredMarkersList() {
+      if (!this.search) return this.objects
+      return this.objects.filter((object) => {
+        const name = object.name.toLowerCase()
+        const targetSearch = this.search.toLowerCase()
+        return name.includes(targetSearch)
+      })
     },
+  },
+  methods: {
     getValidPositionPointName(marker) {
       return {
         lat: marker.latitude,
         lng: marker.longitude,
       }
     },
-    disableActiveMarker() {
-      try {
-        const activeMarker = this.$refs.mapObjects.find((el) => el.isActive)
-        activeMarker.isActive = false
-      } catch {
-        this.search = ''
-      }
-    },
-    setActiveMarker(object) {
-      try {
-        const marker = this.$refs.mapObjects.find(
-          (el) => el.$attrs['data-key'] === object.id
-        )
-        marker.isActive = true
-      } catch {
-        this.search = ''
-      }
+    nextActiveMarker(object) {
+      const activeMarker = this.$refs.mapObjects.find((el) => el.isActive)
+      activeMarker.isActive = false
+      const marker = this.$refs.mapObjects.find(
+        (el) => el.$attrs['data-key'] === object.id
+      )
+      marker.isActive = true
     },
     goToMarker(object) {
-      this.disableActiveMarker()
-      this.setActiveMarker(object)
+      this.nextActiveMarker(object)
+      this.activeItem = object.id
       const positionPoint = this.getValidPositionPointName(object)
       this.$refs.map.mapObject.setView(
         [positionPoint.lat, positionPoint.lng],
         10
       )
-    },
-    getObjectsList() {
-      const objects = this.objects
-      const search = this.search
-      if (!search) {
-        return objects
-      }
-      const filteredObjects = objects.filter((object) => {
-        const name = object.name.toLowerCase()
-        const targetSearch = search.toLowerCase()
-        return name.includes(targetSearch)
-      })
-      return filteredObjects
     },
   },
 }
